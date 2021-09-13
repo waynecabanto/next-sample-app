@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: buildah-app-pipeline-run-
+spec:
+  serviceAccountName: build-bot
+  pipelineRef:
+    name: nodejs-pipeline
+  params:
+    - name: source-repo
+      value: https://github.com/waynecabanto/next-sample-app.git
+    - name: image-repo
+      value: quay.io/waynecabanto/next-sample-app
+    - name: app-name
+      value: wayne-cabanto-buildah-app
+  workspaces:
+    - name: pipeline-shared-data
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
