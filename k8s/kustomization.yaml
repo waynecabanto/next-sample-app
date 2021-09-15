@@ -6,8 +6,7 @@ resources:
 - route.yaml
 images:
 - name: '*'
-  newName: quay.io/waynecabanto/express-sample-app
-  newTag: 8f579a00c14814e6f4d4a9172f404ef41b095610
+  newName: quay.io/waynecabanto/next-sample-app
 commonAnnotations:
-  app.openshift.io/vcs-ref: 8f579a00c14814e6f4d4a9172f404ef41b095610
-  app.openshift.io/vcs-uri: https://github.com/waynecabanto/express-sample-app
+  app.openshift.io/vcs-ref: 9d2e637f1eb7ce8b34134e90f7e3140ab8186a88
+  app.openshift.io/vcs-uri: https://github.com/waynecabanto/next-sample-app
