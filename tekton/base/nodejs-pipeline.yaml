@@ -50,3 +50,35 @@ spec:
       workspaces:
         - name: source
           workspace: pipeline-shared-data
+    - name: create-envorinment-config
+      runAfter:
+        - build-and-push-image
+      taskRef:
+        name: kustomize
+      params:
+        - name: app-name
+          value: "$(params.app-name)"
+        - name: app-namespace
+          value: "$(context.pipelineRun.namespace)"
+        - name: source-repo
+          value: "$(params.source-repo)"
+        - name: commit
+          value: "$(tasks.clone-repository.results.commit)"
+        - name: image-repo
+          value: "$(params.image-repo)"
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
+    - name: try-to-deploy
+      runAfter:
+        - create-envorinment-config
+      taskRef:
+        name: try-to-deploy
+      params:
+        - name: app-name
+          value: "$(params.app-name)"
+        - name: app-namespace
+          value: "$(context.pipelineRun.namespace)"
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
